@@ -9,11 +9,24 @@ module.exports = {
         }),
     ],
     devServer: {
-        static: path.resolve(__dirname, "dist"),
+        static: {
+            directory: path.join(__dirname, "dist"),
+        },
+        watchFiles: ["src/**/*.html"],
+        compress: true,
     },
     output: {
-        filename: "[name].js",
+        filename: "bundle.js",
         path: path.resolve(__dirname, "dist"),
         clean: true,
+    },
+    module: {
+        rules: [
+            {
+                test: /\.scss$/i,
+                exclude: /node_modules/,
+                use: ["style-loader", "css-loader", "sass-loader"],
+            },
+        ],
     },
 };
