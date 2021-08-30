@@ -19,8 +19,8 @@
   },
   "homepage": "https://github.com/Stilic/windows91#readme",
   "dependencies": {
-    "jquery": "^3.6.0",
-    "jquery-ui": "^1.12.1"
+    "98.css": "^0.1.17",
+    "jquery": "^3.6.0"
   },
   "devDependencies": {
     "css-loader": "^6.2.0",
@@ -30,6 +30,7 @@
     "style-loader": "^3.2.1",
     "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0",
-    "webpack-dev-server": "^4.0.0"
+    "webpack-dev-server": "^4.0.0",
+    "webpack-jquery-ui": "^2.0.1"
   }
 }
