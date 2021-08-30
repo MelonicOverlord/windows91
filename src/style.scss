@@ -6,6 +6,10 @@ body {
     padding: 0;
 }
 
+.endAnimation {
+    animation: none !important;
+}
+
 .window {
     position: fixed;
     &.maximized {
@@ -23,6 +27,7 @@ body {
 
 .taskbar {
     z-index: 9999999;
+    display: flex;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -30,9 +35,25 @@ body {
     outline: 1px solid rgb(223, 223, 223);
     border-top: 1px solid rgb(255, 255, 255);
     background: rgb(223, 223, 223);
+    overflow-y: auto;
 
     &,
     *:not(.tasks) {
-        min-height: 28px;
+        height: 28px;
+    }
+}
+
+.devinfo {
+    transition: opacity 0.2s;
+    font-family: monospace;
+    position: fixed;
+    color: white;
+    line-height: 2px;
+    opacity: 0.4;
+    bottom: 4%;
+    right: 0.25%;
+
+    &:hover {
+        opacity: 1;
     }
 }

@@ -27,8 +27,10 @@ class window {
         $(".window .title-bar .maximize-window").on("click", function () {
             maximizeWindow($(".window .title-bar"));
         });
+        let removeTask = this.removeFromTaskbar;
         $(".window .close-window").on("click", function () {
-            $(".window").removeClass("animate__rubberBand");
+            removeTask("#taskbar-" + $(".window").attr("id").replace("window-", ""));
+            $(".window").removeClass("animate__rubberBand endAnimation");
             $(".window").addClass("animate__bounceOut");
             $(".window").on("animationend", function () {
                 $(".window").remove();
@@ -37,8 +39,19 @@ class window {
     }
     addToTaskbar(title, id) {
         $(".taskbar .tasks").append(
-            `<button onclick="w91.removeFromTaskbar("#window-${id}")">${title}</button>`
+            `<button id="taskbar-${id}" onclick="w91.wnd.showOrHideTask('#window-${id}')">${title}</button>`
         );
+    }
+    removeFromTaskbar(task) {
+        $(task).remove();
+    }
+    showOrHideTask(window) {
+        if ($(window).is(":visible")) {
+            $(window).hide();
+        } else {
+            $(window).addClass("endAnimation");
+            $(window).show();
+        }
     }
     create(title, content, data = { maximizable: true }) {
         const id = uniqid();
