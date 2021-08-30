@@ -5,9 +5,9 @@ module.exports = {
     entry: "./src/index.js",
     resolve: {
         alias: {
-            'jquery': 'jquery/src/jquery'
-        }
-      },
+            jquery: "jquery/src/jquery",
+        },
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/index.html",
@@ -23,6 +23,8 @@ module.exports = {
     output: {
         filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "dist"),
+        library: "w91",
+        libraryTarget: "umd",
         clean: true,
     },
     module: {
@@ -30,6 +32,10 @@ module.exports = {
             {
                 test: /\.(sass|css|scss)$/,
                 use: ["style-loader", "css-loader", "sass-loader"],
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: "asset/resource",
             },
         ],
     },
