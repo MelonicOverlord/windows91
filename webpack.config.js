@@ -21,7 +21,7 @@ module.exports = {
         compress: true,
     },
     output: {
-        filename: "bundle.js",
+        filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "dist"),
         library: "w91",
         libraryTarget: "umd",
@@ -41,5 +41,14 @@ module.exports = {
     },
     optimization: {
         runtimeChunk: "single",
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all",
+                },
+            },
+        },
     },
 };
