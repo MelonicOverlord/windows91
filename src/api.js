@@ -1,5 +1,4 @@
 import $ from "jquery";
-import "webpack-jquery-ui/css";
 import "webpack-jquery-ui/draggable";
 import "webpack-jquery-ui/resizable";
 
