@@ -4,13 +4,14 @@ import "webpack-jquery-ui/resizable";
 
 import "98.css";
 import "animate.css";
-import "./style.scss";
+import uniqid from "uniqid";
 
 class window {
-    update(data={"maximizable": true}) {
-        $(".window")
-            .resizable({ minWidth: 300, minHeight: 100 })
-            .draggable({ handle: ".title-bar" });
+    update(data = { maximizable: true, resizable: true }) {
+        $(".window").draggable({ handle: ".title-bar" });
+        if (data["resizable"]) {
+            $(".window").resizable({ minWidth: 300, minHeight: 100 });
+        }
         let maximizeWindow = function (obj) {
             if (obj.parent().hasClass("maximized")) {
                 obj.parent().removeClass("maximized");
@@ -19,7 +20,7 @@ class window {
             }
         };
         $(".window .title-bar").on("dblclick", function () {
-            if (data["maximizable"] == true) {
+            if (data["maximizable"]) {
                 maximizeWindow($(this));
             }
         });
@@ -34,9 +35,16 @@ class window {
             });
         });
     }
-    create(title, content, data = { "maximizable": true }) {
+    addToTaskbar(title, id) {
+        $(".taskbar .tasks").append(
+            `<button onclick="w91.removeFromTaskbar("#window-${id}")">${title}</button>`
+        );
+    }
+    create(title, content, data = { maximizable: true }) {
+        const id = uniqid();
+        this.addToTaskbar(title, id);
         $("body").append(`
-        <div class="window animate__animated animate__rubberBand" style="width: 300px; height: 100px;">
+        <div class="window animate__animated animate__rubberBand" id="window-${id}" style="width: 300px; height: 100px;">
             <div class="title-bar">
                 <div class="title-bar-text">${title}</div>
                 <div class="title-bar-controls">

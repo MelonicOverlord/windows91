@@ -21,7 +21,8 @@
   "dependencies": {
     "98.css": "^0.1.17",
     "animate.css": "^4.1.1",
-    "jquery": "^3.6.0"
+    "jquery": "^3.6.0",
+    "uniqid": "^5.4.0"
   },
   "devDependencies": {
     "css-loader": "^6.2.0",

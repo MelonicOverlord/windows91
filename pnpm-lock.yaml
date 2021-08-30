@@ -9,6 +9,7 @@ specifiers:
   node-sass: ^6.0.1
   sass-loader: ^12.1.0
   style-loader: ^3.2.1
+  uniqid: ^5.4.0
   webpack: ^5.51.1
   webpack-cli: ^4.8.0
   webpack-dev-server: ^4.0.0
@@ -18,6 +19,7 @@ dependencies:
   98.css: 0.1.17
   animate.css: 4.1.1
   jquery: 3.6.0
+  uniqid: 5.4.0
 
 devDependencies:
   css-loader: 6.2.0_webpack@5.51.1
@@ -3407,6 +3409,10 @@ packages:
       media-typer: 0.3.0
       mime-types: 2.1.32
     dev: true
+
+  /uniqid/5.4.0:
+    resolution: {integrity: sha512-38JRbJ4Fj94VmnC7G/J/5n5SC7Ab46OM5iNtSstB/ko3l1b5g7ALt4qzHFgGciFkyiRNtDXtLNb+VsxtMSE77A==}
+    dev: false
 
   /unpipe/1.0.0:
     resolution: {integrity: sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=}
