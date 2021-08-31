@@ -29,7 +29,7 @@ class window {
             }
         });
         let showOrHideTask = this.showOrHideTask;
-        window.children(".minimize-window").on("click", function () {
+        $(".minimize-window").on("click", function () {
             showOrHideTask("#window-" + id);
         });
         $(".maximize-window").on("click", function () {
