@@ -13,8 +13,8 @@ class window {
         window.draggable({ handle: ".title-bar" });
         if (data["resizable"]) {
             window.resizable({
-                minWidth: 300,
-                minHeight: 100,
+                minHeight: 200,
+                minWidth: 400,
                 handles: "all",
             });
         }
@@ -81,6 +81,7 @@ class window {
         title,
         content,
         data = {
+            bodyClasses,
             iframe,
             btnFRW,
             minimizable,
@@ -90,6 +91,9 @@ class window {
             resizable,
         }
     ) {
+        if (data["bodyClasses"] === undefined) {
+            data["bodyClasses"] = "";
+        }
         if (data["iframe"] === undefined) {
             data["iframe"] = "";
         }
@@ -137,7 +141,7 @@ class window {
             </div>
             <${
                 data["iframe"] != "" ? `iframe src="${data["iframe"]}"` : "div"
-            } class="window-body">${data["iframe"] != "" ? "" : content}</${
+            } class="window-body ${data["bodyClasses"]}">${data["iframe"] != "" ? "" : content}</${
             data["iframe"] != "" ? "iframe" : "div"
         }>
         </div>

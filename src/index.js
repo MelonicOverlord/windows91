@@ -1,5 +1,7 @@
 import $ from "jquery";
-import "./style.scss";
+
+import "./scss/index.scss";
+import "./scss/programs.scss";
 import { wnd } from "./api";
 
 wnd.create(
@@ -8,7 +10,12 @@ wnd.create(
     <p>Welcome to Windows 91, a open-source WebOS build for funny utility!</p>
     <button id="wlcmclose">OK</button>
 `,
-    { btnFRW: ["#wlcmclose"], maximizable: false, resizable: false }
+    {
+        btnFRW: ["#wlcmclose"],
+        bodyClasses: "wlcmbody",
+        maximizable: false,
+        resizable: false,
+    }
 );
 
 $(".paintprg").on("dblclick", function () {
