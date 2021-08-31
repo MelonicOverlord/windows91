@@ -1,4 +1,5 @@
 import $ from "jquery";
+import "webpack-jquery-ui/css";
 import "webpack-jquery-ui/draggable";
 import "webpack-jquery-ui/resizable";
 
@@ -11,7 +12,11 @@ class window {
         const window = $("#window-" + id);
         window.draggable({ handle: ".title-bar" });
         if (data["resizable"]) {
-            window.resizable({ minWidth: 300, minHeight: 100 });
+            window.resizable({
+                minWidth: 300,
+                minHeight: 100,
+                handles: "all",
+            });
         }
         let maximizeWindow = function (obj) {
             if (obj.parent().hasClass("maximized")) {
@@ -135,7 +140,6 @@ class window {
             } class="window-body">${data["iframe"] != "" ? "" : content}</${
             data["iframe"] != "" ? "iframe" : "div"
         }>
-            
         </div>
         `);
         this.update(id, data["btnFRW"], {
