@@ -13,8 +13,8 @@ body {
 
 .window {
     position: fixed !important;
-    min-height: 200px;
-    min-width: 400px;
+    min-height: 300px;
+    min-width: 650px;
     &:not(.ui-resizable-resizing) {
         transition: height 0.3s, width 0.3s;
     }

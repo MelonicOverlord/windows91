@@ -13,8 +13,8 @@ class window {
         window.draggable({ handle: ".title-bar" });
         if (data["resizable"]) {
             window.resizable({
-                minHeight: 200,
-                minWidth: 400,
+                minHeight: 300,
+                minWidth: 650,
                 handles: "all",
             });
         }
