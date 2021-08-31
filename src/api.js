@@ -10,8 +10,8 @@ import "animate.css";
 import uniqid from "uniqid";
 
 class window {
-    update(data = { maximizable: true, resizable: true, id: "", btnfcw: [] }) {
-        const window = $("#window-" + data["id"]);
+    update(id, btnfcw, data) {
+        const window = $("#window-" + id);
         window.draggable({ handle: ".title-bar" });
         if (data["resizable"]) {
             window.resizable({ minWidth: 300, minHeight: 100 });
@@ -28,23 +28,33 @@ class window {
                 maximizeWindow($(this));
             }
         });
-        window.children(".title-bar .maximize-window").on("click", function () {
+        let showOrHideTask = this.showOrHideTask;
+        window.children(".minimize-window").on("click", function () {
+            showOrHideTask("#window-" + id);
+        });
+        window.children(".maximize-window").on("click", function () {
             maximizeWindow(window.children(".title-bar"));
         });
         let removeTask = this.removeFromTaskbar;
-        let closeWindow = function() {
-            removeTask("#taskbar-" + window.attr("id").replace("window-", ""));
+        let closeWindow = function (idcfw="") {
             window.removeClass("animate__rubberBand endAnimation");
             window.addClass("animate__bounceOut");
             window.on("animationend", function () {
                 window.remove();
             });
-        }
-        $("#close-window-" + data["id"]).on("click", function () {
+            if (idcfw != "") {
+                removeTask("#taskbar-" + idcfw);
+            } else {
+                removeTask("#taskbar-" + window.attr("id").replace("window-", ""));
+            }
+        };
+        $("#close-window-" + id).on("click", function () {
             closeWindow();
         });
-        for (const b in data["btnfcw"]) {
-            $(data["btnfcw"][b]).on("click", function() {closeWindow();});
+        for (const b in btnfcw) {
+            $(btnfcw[b]).on("click", function () {
+                closeWindow(id);
+            });
         }
     }
     addToTaskbar(title, id) {
@@ -63,7 +73,16 @@ class window {
             $(window).show();
         }
     }
-    create(title, content, data = { maximizable: true, btnFRW: [] }) {
+    create(
+        title,
+        content,
+        btnFRW = [],
+        minimizable = true,
+        maximizable = true,
+        closable = true,
+        resizable = true,
+        maximized = false
+    ) {
         const id = uniqid();
         this.addToTaskbar(title, id);
         $("body").append(`
@@ -71,13 +90,21 @@ class window {
             <div class="title-bar">
                 <div class="title-bar-text">${title}</div>
                 <div class="title-bar-controls">
-                    <button aria-label="Minimize"></button>
+                ${
+                    minimizable
+                        ? '<button class="minimize-window" aria-label="Minimize"></button>'
+                        : ""
+                }
                     ${
-                        data["maximizable"]
+                        maximizable
                             ? '<button class="maximize-window" aria-label="Maximize"></button>'
                             : ""
                     }
-                    <button id="close-window-${id}" aria-label="Close"></button>
+                    ${
+                        closable
+                            ? `<button id="close-window-${id}" aria-label="Close"></button>`
+                            : ""
+                    }
                 </div>
             </div>
             <div class="window-body">
@@ -85,7 +112,13 @@ class window {
             </div>
         </div>
         `);
-        this.update({ maximized: data["maximizable"], id: id, btnfcw: data["btnFRW"] });
+        this.update(id, btnFRW, {
+            maximized: maximized,
+            minimizable: minimizable,
+            maximizable: maximizable,
+            closable: closable,
+            resizable: resizable,
+        });
     }
 }
 

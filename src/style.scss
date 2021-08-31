@@ -4,6 +4,7 @@ body {
     background-attachment: fixed;
     margin: 0;
     padding: 0;
+    overflow: hidden;
 }
 
 .endAnimation {
@@ -11,7 +12,10 @@ body {
 }
 
 .window {
-    position: fixed;
+    position: fixed !important;
+    &:not(.ui-resizable-resizing) {
+        transition: height 0.3s, width 0.3s;
+    }
     &.maximized {
         z-index: 1;
         top: 0 !important;
@@ -65,6 +69,10 @@ body {
         margin-left: 0.3em;
         margin-right: 0.25em;
     }
+
+    .tasks button:active {
+        padding: 0px 11px 0 13px !important;
+    }
 }
 
 button img {
@@ -81,6 +89,7 @@ button img {
     text-align: right;
     position: fixed;
     color: white;
+    user-select: none;
     line-height: 2px;
     opacity: 0.4;
     bottom: 4%;
