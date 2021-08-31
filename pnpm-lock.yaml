@@ -7,6 +7,7 @@ specifiers:
   css-loader: ^6.2.0
   html-webpack-plugin: ^5.3.2
   jquery: ^3.6.0
+  jquery.iframetracker: ^2.1.0
   node-sass: ^6.0.1
   sass-loader: ^12.1.0
   style-loader: ^3.2.1
@@ -20,6 +21,7 @@ dependencies:
   98.css: 0.1.17
   animate.css: 4.1.1
   jquery: 3.6.0
+  jquery.iframetracker: 2.1.0_jquery@3.6.0
   uniqid: 5.4.0
 
 devDependencies:
@@ -1907,6 +1909,14 @@ packages:
   /jquery-ui/1.12.1:
     resolution: {integrity: sha1-vLQEXI3QU5wTS8FIjN0+dop6nlE=}
     dev: true
+
+  /jquery.iframetracker/2.1.0_jquery@3.6.0:
+    resolution: {integrity: sha512-GvaPCBv8Gvjx97HTGdYubVL9zXdDzCJRUN4270cZ6B6ITIX6XiyxoiYsJpHxW/mzwgcYMQstZUgcmTGce1EklQ==}
+    peerDependencies:
+      jquery: '>=1.4.4'
+    dependencies:
+      jquery: 3.6.0
+    dev: false
 
   /jquery/3.6.0:
     resolution: {integrity: sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==}

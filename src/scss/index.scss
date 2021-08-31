@@ -133,10 +133,14 @@ body {
     user-select: none;
     line-height: 2px;
     opacity: 0.4;
-    bottom: 4%;
+    bottom: 3%;
     right: 0.25%;
 
     &:hover {
         opacity: 1;
     }
+}
+
+iframe *:active {
+    opacity: 0;
 }

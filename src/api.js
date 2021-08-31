@@ -11,16 +11,27 @@ class window {
     update(id, btnfcw, data) {
         const window = $("#window-" + id);
         window.draggable({ handle: ".title-bar" });
+        // TODO: detect click in iframe
+        // const fixActive = function (e) {};
         $(document).on("mousedown", function (e) {
-            const task = $("#task-" + window.attr("id").replace("window-", ""));
-            if (e.target === window[0] || window[0].contains(e.target)) {
-                window.addClass("active");
-                task.css("font-weight", "600");
-            } else {
-                window.removeClass("active");
-                task.css("font-weight", "initial");
+            e.stopPropagation();
+            if ($.inArray(e.currentTarget, $(this).children())) {
+                $(".window").each(function () {
+                    $(this).removeClass("active");
+                });
+                $(".task").each(function () {
+                    $(this).css("font-weight", "initial");
+                });
+                const task = $(window.attr("id").replace("window-", "#task-"));
+                if (e.target === window[0] || window[0].contains(e.target)) {
+                    window.addClass("active");
+                    task.css("font-weight", "600");
+                } else {
+                    window.removeClass("active");
+                    task.css("font-weight", "initial");
+                }
             }
-            
+            // fixActive(e);
         });
         if (data["resizable"]) {
             window.resizable({
@@ -59,9 +70,7 @@ class window {
             if (idcfw != "") {
                 removeTask("#task-" + idcfw);
             } else {
-                removeTask(
-                    "#task-" + window.attr("id").replace("window-", "")
-                );
+                removeTask(window.attr("id").replace("window-", "#task-"));
             }
         };
         $("#close-window-" + id).on("click", function () {
@@ -72,19 +81,27 @@ class window {
                 closeWindow(id);
             });
         }
+        window.mousedown();
+        console.log($("#window-" + id + " iframe").html());
     }
     addToTaskbar(title, id) {
         $(".taskbar .tasks").append(
-            `<button id="task-${id}" onclick="w91.wnd.showOrHideTask('#window-${id}')">${title}</button>`
+            `<button id="task-${id}" class="task" onclick="w91.wnd.showOrHideTask('#window-${id}')">${title}</button>`
         );
     }
     removeFromTaskbar(task) {
         $(task).remove();
     }
     showOrHideTask(window) {
+        $(".task").each(function () {
+            $(this).css("font-weight", "initial");
+        });
+        const task = $(window.replace("window-", "task-"));
         if ($(window).is(":visible")) {
+            task.css("font-weight", "initial");
             $(window).hide();
         } else {
+            task.css("font-weight", "600");
             $(window).addClass("endAnimation");
             $(window).show();
         }
@@ -101,7 +118,7 @@ class window {
             maximized,
             closable,
             resizable,
-            onClose
+            onClose,
         }
     ) {
         if (data["bodyClasses"] === undefined) {
@@ -129,7 +146,7 @@ class window {
             data["resizable"] = true;
         }
         if (data["onClose"] === undefined) {
-            data["onClose"] = function(){};
+            data["onClose"] = function () {};
         }
         const id = uniqid();
         this.addToTaskbar(title, id);
@@ -170,7 +187,7 @@ class window {
             maximizable: data["maximizable"],
             closable: data["closable"],
             resizable: data["resizable"],
-            onClose: data["onClose"]
+            onClose: data["onClose"],
         });
     }
 }
