@@ -1,7 +1,4 @@
 import $ from "jquery";
-$.fn.child = function (s) {
-    return $(this).children(s)[0];
-};
 import "webpack-jquery-ui/draggable";
 import "webpack-jquery-ui/resizable";
 
