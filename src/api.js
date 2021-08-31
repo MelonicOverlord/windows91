@@ -1,4 +1,7 @@
 import $ from "jquery";
+$.fn.child = function (s) {
+    return $(this).children(s)[0];
+};
 import "webpack-jquery-ui/draggable";
 import "webpack-jquery-ui/resizable";
 
@@ -7,10 +10,11 @@ import "animate.css";
 import uniqid from "uniqid";
 
 class window {
-    update(data = { maximizable: true, resizable: true }) {
-        $(".window").draggable({ handle: ".title-bar" });
+    update(data = { maximizable: true, resizable: true, id: "" }) {
+        const window = $("#window-" + data["id"]);
+        window.draggable({ handle: ".title-bar" });
         if (data["resizable"]) {
-            $(".window").resizable({ minWidth: 300, minHeight: 100 });
+            window.resizable({ minWidth: 300, minHeight: 100 });
         }
         let maximizeWindow = function (obj) {
             if (obj.parent().hasClass("maximized")) {
@@ -19,21 +23,21 @@ class window {
                 obj.parent().addClass("maximized");
             }
         };
-        $(".window .title-bar").on("dblclick", function () {
+        window.children(".title-bar").on("dblclick", function () {
             if (data["maximizable"]) {
                 maximizeWindow($(this));
             }
         });
-        $(".window .title-bar .maximize-window").on("click", function () {
-            maximizeWindow($(".window .title-bar"));
+        window.children(".title-bar .maximize-window").on("click", function () {
+            maximizeWindow(window.children(".title-bar"));
         });
         let removeTask = this.removeFromTaskbar;
-        $(".window .close-window").on("click", function () {
-            removeTask("#taskbar-" + $(".window").attr("id").replace("window-", ""));
-            $(".window").removeClass("animate__rubberBand endAnimation");
-            $(".window").addClass("animate__bounceOut");
-            $(".window").on("animationend", function () {
-                $(".window").remove();
+        $("#close-window-" + data["id"]).on("click", function () {
+            removeTask("#taskbar-" + window.attr("id").replace("window-", ""));
+            window.removeClass("animate__rubberBand endAnimation");
+            window.addClass("animate__bounceOut");
+            window.on("animationend", function () {
+                window.remove();
             });
         });
     }
@@ -67,7 +71,7 @@ class window {
                             ? '<button class="maximize-window" aria-label="Maximize"></button>'
                             : ""
                     }
-                    <button class="close-window" aria-label="Close"></button>
+                    <button id="close-window-${id}" aria-label="Close"></button>
                 </div>
             </div>
             <div class="window-body">
@@ -75,7 +79,7 @@ class window {
             </div>
         </div>
         `);
-        this.update({ maximized: data["maximizable"] });
+        this.update({ maximized: data["maximizable"], id: id });
     }
 }
 
