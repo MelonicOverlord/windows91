@@ -23,10 +23,44 @@ body {
         width: 99.6% !important;
         height: 99.1% !important;
     }
+    iframe.window-body {
+        height: calc(100% - 20px);
+        width: 100%;
+        margin: 0;
+        border: 0;
+    }
 }
 
 .ui-resizable-handle {
     opacity: 0;
+}
+
+.desktop .icon {
+    padding: 0.75em !important;
+    border: 0 !important;
+    background: none;
+    box-shadow: none !important;
+    outline: 0;
+    &:focus {
+        img {
+            mix-blend-mode: multiply;
+        }
+        p {
+            background: darkblue;
+            outline: 1px dotted black;
+        }
+    }
+    img {
+        width: 30px;
+        height: 35px;
+    }
+    p {
+        background: rgb(0, 128, 128);
+        color: white;
+        margin: 0;
+        margin-top: 5px;
+        margin-left: 0.5%;
+    }
 }
 
 .taskbar {
@@ -49,8 +83,12 @@ body {
     .start {
         border-top-right-radius: 25%;
         border-bottom-right-radius: 20%;
-
         img {
+            width: 20px;
+            height: 20px !important;
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: 2px;
             position: relative;
             bottom: 1px;
             right: 0.5em;
@@ -73,14 +111,6 @@ body {
     .tasks button:active {
         padding: 0px 11px 0 13px !important;
     }
-}
-
-button img {
-    width: 20px;
-    height: 20px !important;
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: 2px;
 }
 
 .devinfo {

@@ -33,7 +33,7 @@ class window {
             maximizeWindow(window.children(".title-bar"));
         });
         let removeTask = this.removeFromTaskbar;
-        let closeWindow = function (idcfw="") {
+        let closeWindow = function (idcfw = "") {
             window.removeClass("animate__rubberBand endAnimation");
             window.addClass("animate__bounceOut");
             window.on("animationend", function () {
@@ -42,7 +42,9 @@ class window {
             if (idcfw != "") {
                 removeTask("#taskbar-" + idcfw);
             } else {
-                removeTask("#taskbar-" + window.attr("id").replace("window-", ""));
+                removeTask(
+                    "#taskbar-" + window.attr("id").replace("window-", "")
+                );
             }
         };
         $("#close-window-" + id).on("click", function () {
@@ -73,13 +75,37 @@ class window {
     create(
         title,
         content,
-        btnFRW = [],
-        minimizable = true,
-        maximizable = true,
-        closable = true,
-        resizable = true,
-        maximized = false
+        data = {
+            iframe,
+            btnFRW,
+            minimizable,
+            maximizable,
+            maximized,
+            closable,
+            resizable,
+        }
     ) {
+        if (!data["iframe"]) {
+            data["iframe"] = "";
+        }
+        if (!data["btnFRW"]) {
+            data["btnFRW"] = [];
+        }
+        if (!data["minimizable"]) {
+            data["minimizable"] = true;
+        }
+        if (!data["maximizable"]) {
+            data["maximizable"] = true;
+        }
+        if (!data["maximized"]) {
+            data["maximized"] = false;
+        }
+        if (!data["closable"]) {
+            data["closable"] = true;
+        }
+        if (!data["resizable"]) {
+            data["resizable"] = true;
+        }
         const id = uniqid();
         this.addToTaskbar(title, id);
         $("body").append(`
@@ -88,35 +114,46 @@ class window {
                 <div class="title-bar-text">${title}</div>
                 <div class="title-bar-controls">
                 ${
-                    minimizable
+                    data["minimizable"]
                         ? '<button class="minimize-window" aria-label="Minimize"></button>'
                         : ""
                 }
                     ${
-                        maximizable
+                        data["maximizable"]
                             ? '<button class="maximize-window" aria-label="Maximize"></button>'
                             : ""
                     }
                     ${
-                        closable
+                        data["closable"]
                             ? `<button id="close-window-${id}" aria-label="Close"></button>`
                             : ""
                     }
                 </div>
             </div>
-            <div class="window-body">
-                ${content}
-            </div>
+            <${
+                data["iframe"] != "" ? `iframe src="${data["iframe"]}"` : "div"
+            } class="window-body">${data["iframe"] != "" ? "" : content}</${
+            data["iframe"] != "" ? "iframe" : "div"
+        }>
+            
         </div>
         `);
-        this.update(id, btnFRW, {
-            maximized: maximized,
-            minimizable: minimizable,
-            maximizable: maximizable,
-            closable: closable,
-            resizable: resizable,
+        this.update(id, data["btnFRW"], {
+            maximized: data["maximized"],
+            minimizable: data["minimizable"],
+            maximizable: data["maximizable"],
+            closable: data["closable"],
+            resizable: data["resizable"],
         });
     }
 }
 
 export let wnd = new window();
+
+class prgs {
+    paint() {
+        wnd.create("Paint", "", { iframe: "https://jspaint.app" });
+    }
+}
+
+export let programs = new prgs();
