@@ -32,7 +32,7 @@ class window {
         window.children(".minimize-window").on("click", function () {
             showOrHideTask("#window-" + id);
         });
-        window.children(".maximize-window").on("click", function () {
+        $(".maximize-window").on("click", function () {
             maximizeWindow(window.children(".title-bar"));
         });
         let removeTask = this.removeFromTaskbar;
