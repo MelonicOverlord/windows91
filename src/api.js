@@ -85,25 +85,25 @@ class window {
             resizable,
         }
     ) {
-        if (!data["iframe"]) {
+        if (data["iframe"] === undefined) {
             data["iframe"] = "";
         }
-        if (!data["btnFRW"]) {
+        if (data["btnFRW"] === undefined) {
             data["btnFRW"] = [];
         }
-        if (!data["minimizable"]) {
+        if (data["minimizable"] === undefined) {
             data["minimizable"] = true;
         }
-        if (!data["maximizable"]) {
+        if (data["maximizable"] === undefined) {
             data["maximizable"] = true;
         }
-        if (!data["maximized"]) {
+        if (data["maximized"] === undefined) {
             data["maximized"] = false;
         }
-        if (!data["closable"]) {
+        if (data["closable"] === undefined) {
             data["closable"] = true;
         }
-        if (!data["resizable"]) {
+        if (data["resizable"] === undefined) {
             data["resizable"] = true;
         }
         const id = uniqid();
