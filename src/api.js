@@ -10,7 +10,7 @@ import "animate.css";
 import uniqid from "uniqid";
 
 class window {
-    update(data = { maximizable: true, resizable: true, id: "" }) {
+    update(data = { maximizable: true, resizable: true, id: "", btnfcw: [] }) {
         const window = $("#window-" + data["id"]);
         window.draggable({ handle: ".title-bar" });
         if (data["resizable"]) {
@@ -32,14 +32,20 @@ class window {
             maximizeWindow(window.children(".title-bar"));
         });
         let removeTask = this.removeFromTaskbar;
-        $("#close-window-" + data["id"]).on("click", function () {
+        let closeWindow = function() {
             removeTask("#taskbar-" + window.attr("id").replace("window-", ""));
             window.removeClass("animate__rubberBand endAnimation");
             window.addClass("animate__bounceOut");
             window.on("animationend", function () {
                 window.remove();
             });
+        }
+        $("#close-window-" + data["id"]).on("click", function () {
+            closeWindow();
         });
+        for (const b in data["btnfcw"]) {
+            $(data["btnfcw"][b]).on("click", function() {closeWindow();});
+        }
     }
     addToTaskbar(title, id) {
         $(".taskbar .tasks").append(
@@ -57,7 +63,7 @@ class window {
             $(window).show();
         }
     }
-    create(title, content, data = { maximizable: true }) {
+    create(title, content, data = { maximizable: true, btnFRW: [] }) {
         const id = uniqid();
         this.addToTaskbar(title, id);
         $("body").append(`
@@ -79,7 +85,7 @@ class window {
             </div>
         </div>
         `);
-        this.update({ maximized: data["maximizable"], id: id });
+        this.update({ maximized: data["maximizable"], id: id, btnfcw: data["btnFRW"] });
     }
 }
 
