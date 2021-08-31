@@ -11,6 +11,17 @@ class window {
     update(id, btnfcw, data) {
         const window = $("#window-" + id);
         window.draggable({ handle: ".title-bar" });
+        $(document).on("mousedown", function (e) {
+            const task = $("#task-" + window.attr("id").replace("window-", ""));
+            if (e.target === window[0] || window[0].contains(e.target)) {
+                window.addClass("active");
+                task.css("font-weight", "600");
+            } else {
+                window.removeClass("active");
+                task.css("font-weight", "initial");
+            }
+            
+        });
         if (data["resizable"]) {
             window.resizable({
                 minHeight: 300,
@@ -39,16 +50,17 @@ class window {
         });
         let removeTask = this.removeFromTaskbar;
         let closeWindow = function (idcfw = "") {
+            data["onClose"]();
             window.removeClass("animate__rubberBand endAnimation");
             window.addClass("animate__bounceOut");
             window.on("animationend", function () {
                 window.remove();
             });
             if (idcfw != "") {
-                removeTask("#taskbar-" + idcfw);
+                removeTask("#task-" + idcfw);
             } else {
                 removeTask(
-                    "#taskbar-" + window.attr("id").replace("window-", "")
+                    "#task-" + window.attr("id").replace("window-", "")
                 );
             }
         };
@@ -63,7 +75,7 @@ class window {
     }
     addToTaskbar(title, id) {
         $(".taskbar .tasks").append(
-            `<button id="taskbar-${id}" onclick="w91.wnd.showOrHideTask('#window-${id}')">${title}</button>`
+            `<button id="task-${id}" onclick="w91.wnd.showOrHideTask('#window-${id}')">${title}</button>`
         );
     }
     removeFromTaskbar(task) {
@@ -89,6 +101,7 @@ class window {
             maximized,
             closable,
             resizable,
+            onClose
         }
     ) {
         if (data["bodyClasses"] === undefined) {
@@ -115,6 +128,9 @@ class window {
         if (data["resizable"] === undefined) {
             data["resizable"] = true;
         }
+        if (data["onClose"] === undefined) {
+            data["onClose"] = function(){};
+        }
         const id = uniqid();
         this.addToTaskbar(title, id);
         $("body").append(`
@@ -140,10 +156,12 @@ class window {
                 </div>
             </div>
             <${
-                data["iframe"] != "" ? `iframe src="${data["iframe"]}"` : "div"
-            } class="window-body ${data["bodyClasses"]}">${data["iframe"] != "" ? "" : content}</${
-            data["iframe"] != "" ? "iframe" : "div"
-        }>
+                data["iframe"] != ""
+                    ? `iframe src="${data["iframe"]}" allow="clipboard-read; clipboard-write"`
+                    : "div"
+            } class="window-body ${data["bodyClasses"]}">${
+            data["iframe"] != "" ? "" : content
+        }</${data["iframe"] != "" ? "iframe" : "div"}>
         </div>
         `);
         this.update(id, data["btnFRW"], {
@@ -152,6 +170,7 @@ class window {
             maximizable: data["maximizable"],
             closable: data["closable"],
             resizable: data["resizable"],
+            onClose: data["onClose"]
         });
     }
 }

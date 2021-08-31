@@ -18,6 +18,11 @@ body {
     &:not(.ui-resizable-resizing) {
         transition: height 0.3s, width 0.3s;
     }
+    &:not(.active) .title-bar {
+        background: linear-gradient(black, black),
+            linear-gradient(90deg, navy, #1084d0);
+        background-blend-mode: saturation;
+    }
     iframe.window-body {
         height: calc(100% - 20px);
         width: 100%;
@@ -88,8 +93,6 @@ body {
     }
 
     .start {
-        border-top-right-radius: 25%;
-        border-bottom-right-radius: 20%;
         img {
             width: 20px;
             height: 20px !important;
@@ -103,6 +106,7 @@ body {
         span {
             position: relative;
             top: 2px;
+            left: 3px;
         }
     }
 
