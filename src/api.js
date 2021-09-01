@@ -102,7 +102,9 @@ class window {
     }
     update(id, btnfcw, data) {
         const window = $("#window-" + id);
-        window.draggable({ handle: ".title-bar" });
+        window.draggable({
+            handle: ".title-bar",
+        });
         // TODO: detect click in iframe
         // const beActive = function (e) {};
         $(document).on("mousedown", function (e) {
@@ -127,6 +129,11 @@ class window {
                 minHeight: 500,
                 minWidth: 850,
                 handles: "all",
+                start: function () {
+                    if (!$(this).hasClass("ui-resized")) {
+                        $(this).addClass("ui-resized");
+                    }
+                },
             });
         }
         let maximizeWindow = function (obj) {
@@ -188,7 +195,7 @@ class window {
         const task = window.replace("window-", "task-");
         if ($(window).is(":visible")) {
             stylizeTask(task, false);
-            $(window).addClass("endAnimation")
+            $(window).addClass("endAnimation");
             $(window).hide();
         } else {
             stylizeTask(task, true);
@@ -199,10 +206,7 @@ class window {
 
 class prgs {
     config() {
-        wnd.create(
-            "Control Panel",
-            "<p>Not supported on the moment</p>"
-        );
+        wnd.create("Control Panel", "<p>Not supported on the moment</p>");
     }
 }
 

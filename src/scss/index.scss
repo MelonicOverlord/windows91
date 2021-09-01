@@ -16,10 +16,12 @@ body {
 
 .window {
     position: fixed !important;
-    top: 20%;
-    right: 25%;
-    min-height: 500px;
-    min-width: 850px;
+    &:not(.ui-resized) {
+        top: 20%;
+        right: 25%;
+        min-height: 500px;
+        min-width: 850px;
+    }
     &:not(.ui-resizable-resizing) {
         transition: height 0.3s, width 0.3s;
     }
@@ -123,7 +125,8 @@ body {
         height: 23px;
     }
 
-    .start, .tasks {
+    .start,
+    .tasks {
         margin-top: 3px;
     }
 
