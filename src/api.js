@@ -12,27 +12,24 @@ class window {
         const window = $("#window-" + id);
         window.draggable({ handle: ".title-bar" });
         // TODO: detect click in iframe
-        // const fixActive = function (e) {};
+        // const beActive = function (e) {};
         $(document).on("mousedown", function (e) {
-            e.stopPropagation();
-            if ($.inArray(e.currentTarget, $(this).children())) {
-                $(".window").each(function () {
-                    $(this).removeClass("active");
-                });
-                $(".task").each(function () {
-                    $(this).css("font-weight", "initial");
-                });
-                const task = $(window.attr("id").replace("window-", "#task-"));
-                if (e.target === window[0] || window[0].contains(e.target)) {
-                    window.addClass("active");
-                    task.css("font-weight", "600");
-                } else {
-                    window.removeClass("active");
-                    task.css("font-weight", "initial");
-                }
+            $(".window").each(function () {
+                window.removeClass("active");
+            });
+            $(".task").each(function () {
+                window.css("font-weight", "initial");
+            });
+            const task = $(id.replace("window-", "#task-"));
+            if (e.target === window[0] || window[0].contains(e.target)) {
+                window.addClass("active");
+                task.css("font-weight", "600");
+            } else {
+                window.removeClass("active");
+                task.css("font-weight", "initial");
             }
-            // fixActive(e);
-        });
+        })
+        $(document).on("click");
         if (data["resizable"]) {
             window.resizable({
                 minHeight: 300,
@@ -62,15 +59,15 @@ class window {
         let removeTask = this.removeFromTaskbar;
         let closeWindow = function (idcfw = "") {
             data["onClose"]();
-            window.removeClass("animate__rubberBand endAnimation");
-            window.addClass("animate__bounceOut");
+            window.removeClass("animate__heartBeat endAnimation");
+            window.addClass("animate__zoomOut");
             window.on("animationend", function () {
                 window.remove();
             });
             if (idcfw != "") {
                 removeTask("#task-" + idcfw);
             } else {
-                removeTask(window.attr("id").replace("window-", "#task-"));
+                removeTask("#task-" + id);
             }
         };
         $("#close-window-" + id).on("click", function () {
@@ -81,8 +78,7 @@ class window {
                 closeWindow(id);
             });
         }
-        window.mousedown();
-        console.log($("#window-" + id + " iframe").html());
+        window.mouseup();
     }
     addToTaskbar(title, id) {
         $(".taskbar .tasks").append(
@@ -151,7 +147,7 @@ class window {
         const id = uniqid();
         this.addToTaskbar(title, id);
         $("body").append(`
-        <div class="window animate__animated animate__rubberBand" id="window-${id}" style="width: 300px; height: 100px;">
+        <div class="window animate__animated animate__heartBeat" id="window-${id}" style="width: 300px; height: 100px;">
             <div class="title-bar">
                 <div class="title-bar-text">${title}</div>
                 <div class="title-bar-controls">
@@ -172,13 +168,13 @@ class window {
                     }
                 </div>
             </div>
-            <${
+            ${
                 data["iframe"] != ""
-                    ? `iframe src="${data["iframe"]}" allow="clipboard-read; clipboard-write"`
-                    : "div"
-            } class="window-body ${data["bodyClasses"]}">${
+                    ? `<iframe src="${data["iframe"]}" allow="clipboard-read; clipboard-write"`
+                    : "<div"
+            } class="window-body${" " + data["bodyClasses"]}">${
             data["iframe"] != "" ? "" : content
-        }</${data["iframe"] != "" ? "iframe" : "div"}>
+        }</${data["iframe"] != "" ? "</iframe>" : "div>"}
         </div>
         `);
         this.update(id, data["btnFRW"], {

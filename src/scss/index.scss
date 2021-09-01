@@ -18,6 +18,9 @@ body {
     &:not(.ui-resizable-resizing) {
         transition: height 0.3s, width 0.3s;
     }
+    &.active {
+        z-index: 1000;
+    }
     &:not(.active) .title-bar {
         background: linear-gradient(black, black),
             linear-gradient(90deg, navy, #1084d0);
