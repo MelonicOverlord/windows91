@@ -5,12 +5,14 @@ import "./scss/programs.scss";
 import { wnd, programs } from "./api";
 
 $(function () {
-    const startmenu = $(".start-menu");
-    $(document).on("keyup mouseup", function (e) {
-        const menu = $(".menu");
+    const menu = $(".menu");
+    $(document).on("keyup", function (e) {
         if (e.key === "Escape") {
             menu.removeClass("active");
-        } else if (!menu.is(e.target) && menu.has(e.target).length === 0) {
+        }
+    });
+    $(document).on("mouseup", function (e) {
+        if (!menu.is(e.target) && menu.has(e.target).length === 0) {
             menu.removeClass("active");
         }
     });
@@ -37,6 +39,7 @@ $(function () {
     }
 
     $(".taskbar .start").on("click", function () {
+        const startmenu = $(".start-menu");
         if (!startmenu.hasClass("active")) {
             startmenu.addClass("active");
         } else {
