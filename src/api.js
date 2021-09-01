@@ -31,6 +31,7 @@ class window {
             onClose: function () {},
         }
     ) {
+        // double check for data propreties
         if (data["bodyClasses"] === undefined) {
             data["bodyClasses"] = "";
         }
@@ -59,7 +60,9 @@ class window {
             data["onClose"] = function () {};
         }
         const id = uniqid();
-        this.addToTaskbar(title, id);
+        $(".taskbar .tasks").append(
+            `<button id="task-${id}" class="task" onclick="w91.wnd.showOrHideTask('#window-${id}')">${title}</button>`
+        );
         $("body").append(`
         <div class="window animate__animated animate__heartBeat" id="window-${id}" style="width: 300px; height: 100px;">
             <div class="title-bar">
@@ -91,22 +94,70 @@ class window {
         }</${data["iframe"] != "" ? "</iframe>" : "div>"}
         </div>
         `);
-        this.update(id, data["btnFRW"], {
-            maximized: data["maximized"],
-            minimizable: data["minimizable"],
-            maximizable: data["maximizable"],
-            closable: data["closable"],
-            resizable: data["resizable"],
-            onClose: data["onClose"],
-        });
-    }
-    update(id, btnfcw, data) {
+
         const window = $("#window-" + id);
         window.draggable({
             handle: ".title-bar",
         });
+        if (data["resizable"]) {
+            window.resizable({
+                minHeight: 500,
+                minWidth: 850,
+                handles: "all",
+                start: function () {
+                    if (!$(this).hasClass("ui-resized")) {
+                        $(this).addClass("ui-resized");
+                    }
+                },
+            });
+        }
+        // add window maximize
+        let maximizeWindow = function (window) {
+            if (window.parent().hasClass("maximized")) {
+                window.parent().removeClass("maximized");
+            } else {
+                window.parent().addClass("maximized");
+            }
+        };
+        window.children(".title-bar").on("dblclick", function () {
+            if (data["maximizable"]) {
+                maximizeWindow($(this));
+            }
+        });
+        $(".maximize-window").on("click", function () {
+            maximizeWindow(window.children(".title-bar"));
+        });
+        // minimization support
+        let showOrHideTask = this.showOrHideTask;
+        $(".minimize-window").on("click", function () {
+            showOrHideTask("#window-" + id);
+        });
+        // support window closing
+        let closeWindow = function (idcfw = "") {
+            data["onClose"]();
+            window.removeClass("animate__heartBeat endAnimation");
+            window.addClass("animate__zoomOut");
+            window.on("animationend", function () {
+                window.remove();
+            });
+            if (idcfw != "") {
+                $("#task-" + idcfw).remove();
+            } else {
+                $("#task-" + id).remove();
+            }
+        };
+        $("#close-window-" + id).on("click", function () {
+            closeWindow();
+        });
+        // eslint-disable-next-line no-unused-vars
+        for (const b in data["btnFRW"]) {
+            $(data["btnFRW"]).on("click", function () {
+                closeWindow(id);
+            });
+        }
         // TODO: detect click in iframe
         // const beActive = function (e) {};
+        // stylize window title bar and task
         $(document).on("mousedown", function (e) {
             $(".window").each(function () {
                 window.removeClass("active");
@@ -123,70 +174,8 @@ class window {
                 stylizeTask(task, false);
             }
         });
-        $(document).on("click");
-        if (data["resizable"]) {
-            window.resizable({
-                minHeight: 500,
-                minWidth: 850,
-                handles: "all",
-                start: function () {
-                    if (!$(this).hasClass("ui-resized")) {
-                        $(this).addClass("ui-resized");
-                    }
-                },
-            });
-        }
-        let maximizeWindow = function (obj) {
-            if (obj.parent().hasClass("maximized")) {
-                obj.parent().removeClass("maximized");
-            } else {
-                obj.parent().addClass("maximized");
-            }
-        };
-        window.children(".title-bar").on("dblclick", function () {
-            if (data["maximizable"]) {
-                maximizeWindow($(this));
-            }
-        });
-        let showOrHideTask = this.showOrHideTask;
-        $(".minimize-window").on("click", function () {
-            showOrHideTask("#window-" + id);
-        });
-        $(".maximize-window").on("click", function () {
-            maximizeWindow(window.children(".title-bar"));
-        });
-        let removeTask = this.removeFromTaskbar;
-        let closeWindow = function (idcfw = "") {
-            data["onClose"]();
-            window.removeClass("animate__heartBeat endAnimation");
-            window.addClass("animate__zoomOut");
-            window.on("animationend", function () {
-                window.remove();
-            });
-            if (idcfw != "") {
-                removeTask("#task-" + idcfw);
-            } else {
-                removeTask("#task-" + id);
-            }
-        };
-        $("#close-window-" + id).on("click", function () {
-            closeWindow();
-        });
-        for (const b in btnfcw) {
-            $(btnfcw[b]).on("click", function () {
-                closeWindow(id);
-            });
-        }
         window.mousedown();
         stylizeTask("#task-" + id, true);
-    }
-    addToTaskbar(title, id) {
-        $(".taskbar .tasks").append(
-            `<button id="task-${id}" class="task" onclick="w91.wnd.showOrHideTask('#window-${id}')">${title}</button>`
-        );
-    }
-    removeFromTaskbar(task) {
-        $(task).remove();
     }
     showOrHideTask(window) {
         $(".task").each(function () {
@@ -204,6 +193,7 @@ class window {
     }
 }
 
+// manage system programs
 class prgs {
     config() {
         wnd.create("Control Panel", "<p>Not supported on the moment</p>");
