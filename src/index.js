@@ -16,7 +16,8 @@ $(function () {
   $(document).on("mouseup", function (e) {
     if (
       !menu.is(e.target) &&
-      !$(".start").is(e.target) &&
+      (!$(".start").is(e.target) &&
+      $(".start").has(e.target).length === 0) &&
       menu.has(e.target).length === 0
     ) {
       menu.removeClass("active");
