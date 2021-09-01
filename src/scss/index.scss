@@ -8,6 +8,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    user-select: none;
 }
 
 .endAnimation {
@@ -32,6 +33,9 @@ body {
         background: linear-gradient(black, white),
             linear-gradient(90deg, navy, #1084d0);
         background-blend-mode: saturation;
+    }
+    .window-body {
+        user-select: text;
     }
     iframe.window-body {
         height: calc(100% - 20px);
