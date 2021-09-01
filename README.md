@@ -8,15 +8,11 @@ A funny version of Windows 98.
 
 ## Setup
 
-```
-# install
-npm i
-# build
-npm run build
-# run dev server
-npm run dev
-# lint the code
-npm run lint
+```bash
+npm i # Install it
+npm run build # Build it
+npm run dev # Run developer server
+npm run lint # Lint the code
 ```
 
 ## License
