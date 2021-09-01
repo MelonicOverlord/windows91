@@ -2,14 +2,15 @@ $shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey,
     inset 2px 2px #dfdfdf;
 
 body {
-	background-color: #3B6EA5;
+    background-color: #3B6EA5;
     background-image: url("../assets/clouds.jpg");
     background-size: cover;
     background-attachment: fixed;
-	background-repeat: no-repeat;
+    background-repeat: no-repeat;
     margin: 0;
     padding: 0;
     overflow: hidden;
+    user-select: none;
 }
 
 .endAnimation {
