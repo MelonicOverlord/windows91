@@ -2,13 +2,14 @@ $shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey,
     inset 2px 2px #dfdfdf;
 
 body {
-    background: url("../assets/clouds.jpg") no-repeat;
+	background-color: #3B6EA5;
+    background-image: url("../assets/clouds.jpg");
     background-size: cover;
     background-attachment: fixed;
+	background-repeat: no-repeat;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    user-select: none;
 }
 
 .endAnimation {
@@ -98,7 +99,7 @@ body {
 }
 
 .start-menu {
-    z-index: 1000000000;
+    z-index: 2;
     position: fixed;
     bottom: 32px;
     left: 1px;
@@ -114,7 +115,7 @@ body {
 }
 
 .taskbar {
-    z-index: 2;
+    z-index: 3;
     display: flex;
     position: fixed;
     bottom: 0;
@@ -184,9 +185,10 @@ body {
     position: fixed;
     color: white;
     user-select: none;
-    opacity: 0.4;
-    bottom: 3%;
-    right: 0.25%;
+    opacity: 0.5;
+    right: 0;
+	bottom: 0;
+	padding: 0.4em;
 
     &:hover {
         opacity: 1;
