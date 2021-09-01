@@ -5,6 +5,7 @@ import "./scss/programs.scss";
 import {wnd, programs} from "./api";
 
 $(function () {
+  const startaudio = $("#startup-audio")[0];
   // manage start menu
   const menu = $(".menu");
   const startmenu = $(".start-menu");
@@ -30,6 +31,8 @@ $(function () {
   $("button img").attr("draggable", false);
 
   if (!localStorage.getItem("wlcmConfirmed")) {
+    startaudio.muted = false;
+    startaudio.play();
     wnd.create(
       "Welcome",
       `

@@ -18,3 +18,5 @@ npm run lint # Lint the code
 ## License
 
 This repository is under the [MIT license](LICENSE).
+
+**NOTE**: The audio played on startup was generated using [Vocodes](https://vo.codes/)
