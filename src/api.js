@@ -60,11 +60,12 @@ class window {
             data["onClose"] = function () {};
         }
         const id = uniqid();
+        const animation = "animate__bounceIn";
         $(".taskbar .tasks").append(
             `<button id="task-${id}" class="task" onclick="w91.wnd.showOrHideTask('#window-${id}')">${title}</button>`
         );
         $("body").append(`
-        <div class="window animate__animated animate__heartBeat" id="window-${id}" style="width: 300px; height: 100px;">
+        <div class="window animate__animated ${animation}" id="window-${id}" style="width: 300px; height: 100px;">
             <div class="title-bar">
                 <div class="title-bar-text">${title}</div>
                 <div class="title-bar-controls">
@@ -135,7 +136,7 @@ class window {
         // support window closing
         let closeWindow = function (idcfw = "") {
             data["onClose"]();
-            window.removeClass("animate__heartBeat endAnimation");
+            window.removeClass(animation + " endAnimation");
             window.addClass("animate__zoomOut");
             window.on("animationend", function () {
                 window.remove();
