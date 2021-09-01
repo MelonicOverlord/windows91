@@ -1,3 +1,6 @@
+$shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey,
+    inset 2px 2px #dfdfdf;
+
 body {
     background: url("../assets/clouds.jpg") no-repeat;
     background-size: cover;
@@ -13,6 +16,8 @@ body {
 
 .window {
     position: fixed !important;
+    top: 30%;
+    right: 40%;
     min-height: 300px;
     min-width: 650px;
     &:not(.ui-resizable-resizing) {
@@ -22,7 +27,7 @@ body {
         z-index: 1000;
     }
     &:not(.active) .title-bar {
-        background: linear-gradient(black, black),
+        background: linear-gradient(black, white),
             linear-gradient(90deg, navy, #1084d0);
         background-blend-mode: saturation;
     }
@@ -84,6 +89,21 @@ body {
             margin-top: 5px;
             margin-left: 0.5%;
         }
+    }
+}
+
+.start-menu {
+    position: fixed;
+    bottom: 32px;
+    left: 1px;
+    background: lightgrey;
+    box-shadow: $shadow;
+    width: 207px;
+    height: 340px;
+    overflow: auto;
+    display: none;
+    &.active {
+        display: initial;
     }
 }
 

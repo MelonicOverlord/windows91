@@ -28,7 +28,7 @@ class window {
                 window.removeClass("active");
                 task.css("font-weight", "initial");
             }
-        })
+        });
         $(document).on("click");
         if (data["resizable"]) {
             window.resizable({
@@ -106,15 +106,15 @@ class window {
         title,
         content,
         data = {
-            bodyClasses,
-            iframe,
-            btnFRW,
-            minimizable,
-            maximizable,
-            maximized,
-            closable,
-            resizable,
-            onClose,
+            bodyClasses: "",
+            iframe: "",
+            btnFRW: [],
+            minimizable: true,
+            maximizable: true,
+            maximized: false,
+            closable: true,
+            resizable: true,
+            onClose: function () {},
         }
     ) {
         if (data["bodyClasses"] === undefined) {
@@ -188,17 +188,19 @@ class window {
     }
 }
 
-export let wnd = new window();
-
 class prgs {
     paint() {
         wnd.create("Paint", "", { iframe: "https://jspaint.app" });
     }
     config() {
-        wnd.create("Configuration", `
+        wnd.create(
+            "Control Panel",
+            `
             <p>AMOGUS</p>
-        `);
+        `
+        );
     }
 }
 
+export let wnd = new window();
 export let programs = new prgs();

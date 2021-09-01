@@ -2,9 +2,19 @@ import $ from "jquery";
 
 import "./scss/index.scss";
 import "./scss/programs.scss";
-import { wnd } from "./api";
+import { wnd, programs } from "./api";
 
 $(function () {
+    const startmenu = $(".start-menu");
+    $(document).on("keyup mouseup", function (e) {
+        const menu = $(".menu");
+        if (e.key === "Escape") {
+            menu.removeClass("active");
+        } else if (!menu.is(e.target) && menu.has(e.target).length === 0) {
+            menu.removeClass("active");
+        }
+    });
+
     $("button img").attr("draggable", false);
 
     if (!localStorage.getItem("wlcmConfirmed")) {
@@ -26,7 +36,18 @@ $(function () {
         );
     }
 
+    $(".taskbar .start").on("click", function () {
+        if (!startmenu.hasClass("active")) {
+            startmenu.addClass("active");
+        } else {
+            startmenu.removeClass("active");
+        }
+    });
+
     $(".paintprg").on("dblclick", function () {
-        w91.programs.paint();
+        programs.paint();
+    });
+    $(".configprg").on("dblclick", function () {
+        programs.config();
     });
 });
