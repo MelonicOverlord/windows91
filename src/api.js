@@ -7,101 +7,15 @@ import "98.css";
 import "animate.css";
 import uniqid from "uniqid";
 
+function stylizeTask(ref, bold) {
+    if (bold) {
+        $(ref).css("font-weight", "600");
+    } else {
+        $(ref).css("font-weight", "initial");
+    }
+}
+
 class window {
-    update(id, btnfcw, data) {
-        const window = $("#window-" + id);
-        window.draggable({ handle: ".title-bar" });
-        // TODO: detect click in iframe
-        // const beActive = function (e) {};
-        $(document).on("mousedown", function (e) {
-            $(".window").each(function () {
-                window.removeClass("active");
-            });
-            $(".task").each(function () {
-                window.css("font-weight", "initial");
-            });
-            const task = $(id.replace("window-", "#task-"));
-            if (e.target === window[0] || window[0].contains(e.target)) {
-                window.addClass("active");
-                task.css("font-weight", "600");
-            } else {
-                window.removeClass("active");
-                task.css("font-weight", "initial");
-            }
-        });
-        $(document).on("click");
-        if (data["resizable"]) {
-            window.resizable({
-                minHeight: 300,
-                minWidth: 650,
-                handles: "all",
-            });
-        }
-        let maximizeWindow = function (obj) {
-            if (obj.parent().hasClass("maximized")) {
-                obj.parent().removeClass("maximized");
-            } else {
-                obj.parent().addClass("maximized");
-            }
-        };
-        window.children(".title-bar").on("dblclick", function () {
-            if (data["maximizable"]) {
-                maximizeWindow($(this));
-            }
-        });
-        let showOrHideTask = this.showOrHideTask;
-        $(".minimize-window").on("click", function () {
-            showOrHideTask("#window-" + id);
-        });
-        $(".maximize-window").on("click", function () {
-            maximizeWindow(window.children(".title-bar"));
-        });
-        let removeTask = this.removeFromTaskbar;
-        let closeWindow = function (idcfw = "") {
-            data["onClose"]();
-            window.removeClass("animate__heartBeat endAnimation");
-            window.addClass("animate__zoomOut");
-            window.on("animationend", function () {
-                window.remove();
-            });
-            if (idcfw != "") {
-                removeTask("#task-" + idcfw);
-            } else {
-                removeTask("#task-" + id);
-            }
-        };
-        $("#close-window-" + id).on("click", function () {
-            closeWindow();
-        });
-        for (const b in btnfcw) {
-            $(btnfcw[b]).on("click", function () {
-                closeWindow(id);
-            });
-        }
-        window.mousedown();
-    }
-    addToTaskbar(title, id) {
-        $(".taskbar .tasks").append(
-            `<button id="task-${id}" class="task" onclick="w91.wnd.showOrHideTask('#window-${id}')">${title}</button>`
-        );
-    }
-    removeFromTaskbar(task) {
-        $(task).remove();
-    }
-    showOrHideTask(window) {
-        $(".task").each(function () {
-            $(this).css("font-weight", "initial");
-        });
-        const task = $(window.replace("window-", "task-"));
-        if ($(window).is(":visible")) {
-            task.css("font-weight", "initial");
-            $(window).hide();
-        } else {
-            task.css("font-weight", "600");
-            $(window).addClass("endAnimation");
-            $(window).show();
-        }
-    }
     create(
         title,
         content,
@@ -185,6 +99,101 @@ class window {
             resizable: data["resizable"],
             onClose: data["onClose"],
         });
+    }
+    update(id, btnfcw, data) {
+        const window = $("#window-" + id);
+        window.draggable({ handle: ".title-bar" });
+        // TODO: detect click in iframe
+        // const beActive = function (e) {};
+        $(document).on("mousedown", function (e) {
+            $(".window").each(function () {
+                window.removeClass("active");
+            });
+            $(".task").each(function () {
+                stylizeTask(this, false);
+            });
+            const task = "#task-" + id;
+            if (e.target === window[0] || window[0].contains(e.target)) {
+                window.addClass("active");
+                stylizeTask(task, true);
+            } else {
+                window.removeClass("active");
+                stylizeTask(task, false);
+            }
+        });
+        $(document).on("click");
+        if (data["resizable"]) {
+            window.resizable({
+                minHeight: 300,
+                minWidth: 650,
+                handles: "all",
+            });
+        }
+        let maximizeWindow = function (obj) {
+            if (obj.parent().hasClass("maximized")) {
+                obj.parent().removeClass("maximized");
+            } else {
+                obj.parent().addClass("maximized");
+            }
+        };
+        window.children(".title-bar").on("dblclick", function () {
+            if (data["maximizable"]) {
+                maximizeWindow($(this));
+            }
+        });
+        let showOrHideTask = this.showOrHideTask;
+        $(".minimize-window").on("click", function () {
+            showOrHideTask("#window-" + id);
+        });
+        $(".maximize-window").on("click", function () {
+            maximizeWindow(window.children(".title-bar"));
+        });
+        let removeTask = this.removeFromTaskbar;
+        let closeWindow = function (idcfw = "") {
+            data["onClose"]();
+            window.removeClass("animate__heartBeat endAnimation");
+            window.addClass("animate__zoomOut");
+            window.on("animationend", function () {
+                window.remove();
+            });
+            if (idcfw != "") {
+                removeTask("#task-" + idcfw);
+            } else {
+                removeTask("#task-" + id);
+            }
+        };
+        $("#close-window-" + id).on("click", function () {
+            closeWindow();
+        });
+        for (const b in btnfcw) {
+            $(btnfcw[b]).on("click", function () {
+                closeWindow(id);
+            });
+        }
+        window.mousedown();
+        stylizeTask("#task-" + id, true);
+    }
+    addToTaskbar(title, id) {
+        $(".taskbar .tasks").append(
+            `<button id="task-${id}" class="task" onclick="w91.wnd.showOrHideTask('#window-${id}')">${title}</button>`
+        );
+    }
+    removeFromTaskbar(task) {
+        $(task).remove();
+    }
+    showOrHideTask(window) {
+        $(".task").each(function () {
+            stylizeTask(this, false);
+        });
+        const task = window.replace("window-", "task-");
+        if ($(window).is(":visible")) {
+            stylizeTask(task, false);
+            $(window).addClass("endAnimation")
+            $(window).hide();
+        } else {
+            stylizeTask(task, true);
+            $(window).show();
+        }
     }
 }
 
