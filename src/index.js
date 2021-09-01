@@ -6,6 +6,7 @@ import { wnd, programs } from "./api";
 
 $(function () {
     const menu = $(".menu");
+    const startmenu = $(".start-menu");
     $(document).on("keyup", function (e) {
         if (e.key === "Escape") {
             menu.removeClass("active");
@@ -14,6 +15,9 @@ $(function () {
     $(document).on("mouseup", function (e) {
         if (!menu.is(e.target) && menu.has(e.target).length === 0) {
             menu.removeClass("active");
+        } else if (startmenu.is(e.target) && startmenu.hasClass("active")) {
+            console.log("amogus");
+            startmenu.removeClass("active");
         }
     });
 
@@ -39,11 +43,10 @@ $(function () {
     }
 
     $(".taskbar .start").on("click", function () {
-        const startmenu = $(".start-menu");
-        if (!startmenu.hasClass("active")) {
-            startmenu.addClass("active");
-        } else {
+        if (startmenu.hasClass("active")) {
             startmenu.removeClass("active");
+        } else {
+            startmenu.addClass("active");
         }
     });
 

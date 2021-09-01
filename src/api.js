@@ -78,7 +78,7 @@ class window {
                 closeWindow(id);
             });
         }
-        window.mouseup();
+        window.mousedown();
     }
     addToTaskbar(title, id) {
         $(".taskbar .tasks").append(
