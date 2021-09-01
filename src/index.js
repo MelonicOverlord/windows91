@@ -16,8 +16,6 @@ $(function () {
   $(document).on("mouseup", function (e) {
     if (!menu.is(e.target) && menu.has(e.target).length === 0) {
       menu.removeClass("active");
-    } else if (startmenu.is(e.target) && startmenu.hasClass("active")) {
-      startmenu.removeClass("active");
     }
   });
   $(".taskbar .start").on("click", function () {
