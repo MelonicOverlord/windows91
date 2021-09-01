@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 module.exports = {
     "env": {
         "browser": true,
@@ -49,7 +50,7 @@ module.exports = {
         "default-case": "error",
         "default-case-last": "error",
         "default-param-last": "error",
-        "dot-location": "error",
+        "dot-location": "off",
         "dot-notation": "off",
         "eol-last": "error",
         "eqeqeq": "off",
@@ -104,7 +105,7 @@ module.exports = {
             "always-multiline"
         ],
         "new-parens": "error",
-        "newline-per-chained-call": "error",
+        "newline-per-chained-call": "off",
         "no-alert": "error",
         "no-array-constructor": "error",
         "no-await-in-loop": "error",

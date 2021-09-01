@@ -3,7 +3,6 @@ import "webpack-jquery-ui/css";
 import "webpack-jquery-ui/draggable";
 import "webpack-jquery-ui/resizable";
 
-import "98.css";
 import "animate.css";
 import uniqid from "uniqid";
 
@@ -11,7 +10,7 @@ function stylizeTask(ref, bold) {
   if (bold) {
     $(ref).css("font-weight", "600");
   } else {
-    $(ref).css("font-weight", "initial");
+    $(ref).css("font-weight", "");
   }
 }
 
@@ -170,7 +169,7 @@ class window {
         stylizeTask(this, false);
       });
       const task = "#task-" + id;
-      if (e.target === window[0] || window[0].contains(e.target)) {
+      if (window.is(e.target) || window[0].contains(e.target)) {
         window.addClass("active");
         stylizeTask(task, true);
       } else {

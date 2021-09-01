@@ -5,8 +5,7 @@ import "./scss/programs.scss";
 import {wnd, programs} from "./api";
 
 $(function () {
-  const startaudio = $("#startup-audio")[0];
-  // manage start menu
+  // manage all menus
   const menu = $(".menu");
   const startmenu = $(".start-menu");
   $(document).on("keyup", function (e) {
@@ -15,11 +14,15 @@ $(function () {
     }
   });
   $(document).on("mouseup", function (e) {
-    if (!menu.is(e.target) && menu.has(e.target).length === 0) {
+    if (
+      !menu.is(e.target) &&
+      !$(".start").is(e.target) &&
+      menu.has(e.target).length === 0
+    ) {
       menu.removeClass("active");
     }
   });
-  $(".taskbar .start").on("click", function () {
+  $(".start").on("click", function () {
     if (startmenu.hasClass("active")) {
       startmenu.removeClass("active");
     } else {
@@ -31,8 +34,6 @@ $(function () {
   $("button img").attr("draggable", false);
 
   if (!localStorage.getItem("wlcmConfirmed")) {
-    startaudio.muted = false;
-    startaudio.play();
     wnd.create(
       "Welcome",
       `
