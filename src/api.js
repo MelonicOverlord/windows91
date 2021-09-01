@@ -152,7 +152,7 @@ class window {
         });
         // eslint-disable-next-line no-unused-vars
         for (const b in data["btnFRW"]) {
-            $(data["btnFRW"]).on("click", function () {
+            $(data["btnFRW"][b]).on("click", function () {
                 closeWindow(id);
             });
         }
