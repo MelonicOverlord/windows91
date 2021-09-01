@@ -194,6 +194,11 @@ class prgs {
     paint() {
         wnd.create("Paint", "", { iframe: "https://jspaint.app" });
     }
+    config() {
+        wnd.create("Configuration", `
+            <p>AMOGUS</p>
+        `);
+    }
 }
 
 export let programs = new prgs();

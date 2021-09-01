@@ -1,5 +1,5 @@
 body {
-    background: url("../assets/background.jpg") no-repeat;
+    background: url("../assets/clouds.jpg") no-repeat;
     background-size: cover;
     background-attachment: fixed;
     margin: 0;
@@ -50,31 +50,40 @@ body {
     opacity: 0;
 }
 
-.desktop .icon {
-    padding: 0.75em !important;
-    border: 0 !important;
-    background: none;
-    box-shadow: none !important;
-    outline: 0;
-    &:focus {
+.desktop {
+    display: flex;
+    flex-direction: column;
+    margin: 6px 0 0 4px;
+    .icon:first-child {
+        padding-top: 0 !important;
+    }
+    .icon {
+        max-width: 75px;
+        padding: 0.75em 0.75em 0 0 !important;
+        border: 0 !important;
+        background: none;
+        box-shadow: none !important;
+        outline: 0;
+        &:focus {
+            img {
+                mix-blend-mode: multiply;
+            }
+            p {
+                background: darkblue;
+                outline: 1px dotted black;
+            }
+        }
         img {
-            mix-blend-mode: multiply;
+            width: 30px;
+            height: 35px;
         }
         p {
-            background: darkblue;
-            outline: 1px dotted black;
+            background: rgb(0, 128, 128);
+            color: white;
+            margin: 0;
+            margin-top: 5px;
+            margin-left: 0.5%;
         }
-    }
-    img {
-        width: 30px;
-        height: 35px;
-    }
-    p {
-        background: rgb(0, 128, 128);
-        color: white;
-        margin: 0;
-        margin-top: 5px;
-        margin-left: 0.5%;
     }
 }
 
@@ -85,20 +94,27 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
+    height: 28px;
     outline: 1px solid rgb(223, 223, 223);
     border-top: 1px solid white;
     background: rgb(223, 223, 223);
     overflow-y: auto;
 
-    &,
     *:not(.tasks) {
-        height: 28px;
+        height: 23px;
+        margin-top: 0.25%;
     }
 
     .start {
+        display: flex;
+        min-width: 20px !important;
+        width: 65px;
+        padding-top: 3px;
+        padding-right: 3px !important;
+        margin-left: 0.2em;
         img {
-            width: 20px;
-            height: 20px !important;
+            width: 17px;
+            height: 15px !important;
             display: inline-block;
             vertical-align: middle;
             margin-top: 2px;
@@ -108,8 +124,10 @@ body {
         }
         span {
             position: relative;
-            top: 2px;
-            left: 3px;
+            font-weight: 510;
+            font-size: 1.2em;
+            top: 1px;
+            left: -2px;
         }
     }
 
