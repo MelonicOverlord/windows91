@@ -42,6 +42,8 @@ $(function () {
         );
     }
 
+    wnd.create("Test", "", {iframe: "https://dev.fosscord.com"})
+
     $(".taskbar .start").on("click", function () {
         if (startmenu.hasClass("active")) {
             startmenu.removeClass("active");
@@ -50,9 +52,6 @@ $(function () {
         }
     });
 
-    $(".paintprg").on("dblclick", function () {
-        programs.paint();
-    });
     $(".configprg").on("dblclick", function () {
         programs.config();
     });

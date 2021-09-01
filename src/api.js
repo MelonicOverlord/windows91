@@ -124,8 +124,8 @@ class window {
         $(document).on("click");
         if (data["resizable"]) {
             window.resizable({
-                minHeight: 300,
-                minWidth: 650,
+                minHeight: 500,
+                minWidth: 850,
                 handles: "all",
             });
         }
@@ -198,15 +198,10 @@ class window {
 }
 
 class prgs {
-    paint() {
-        wnd.create("Paint", "", { iframe: "https://jspaint.app" });
-    }
     config() {
         wnd.create(
             "Control Panel",
-            `
-            <p>AMOGUS</p>
-        `
+            "<p>Not supported on the moment</p>"
         );
     }
 }

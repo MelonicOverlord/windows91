@@ -16,10 +16,10 @@ body {
 
 .window {
     position: fixed !important;
-    top: 30%;
-    right: 40%;
-    min-height: 300px;
-    min-width: 650px;
+    top: 20%;
+    right: 25%;
+    min-height: 500px;
+    min-width: 850px;
     &:not(.ui-resizable-resizing) {
         transition: height 0.3s, width 0.3s;
     }
@@ -46,13 +46,12 @@ body {
         box-shadow: none;
 
         iframe.window-body {
-            height: calc(100% - 49px);
+            height: calc(100% - 42px);
         }
     }
-}
-
-.ui-resizable-handle {
-    opacity: 0;
+    .ui-resizable-handle {
+        opacity: 0;
+    }
 }
 
 .desktop {
@@ -122,7 +121,10 @@ body {
 
     *:not(.tasks) {
         height: 23px;
-        margin-top: 0.2%;
+    }
+
+    .start, .tasks {
+        margin-top: 3px;
     }
 
     .start {
@@ -161,7 +163,6 @@ body {
     }
 
     .tasks {
-        margin-top: 2px;
         button:active {
             padding: 0px 11px 0 13px !important;
         }
