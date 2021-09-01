@@ -94,6 +94,7 @@ body {
 }
 
 .start-menu {
+    z-index: 1000000000;
     position: fixed;
     bottom: 32px;
     left: 1px;
