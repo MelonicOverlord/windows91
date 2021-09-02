@@ -65,7 +65,7 @@ body {
 .desktop {
   display: flex;
   flex-direction: column;
-  margin: 6px 0 0 6px;
+  margin: 6px 0 0 1px;
   .icon:first-child {
     margin-top: 0 !important;
   }
@@ -73,7 +73,7 @@ body {
     max-width: 93px;
     min-height: 70px;
     padding-left: 5px;
-    margin: 1em 1em 0 0 !important;
+    margin: 1.5em 0 0 0 !important;
     border: 0;
     background: none;
     outline: 0;
@@ -142,7 +142,7 @@ $fluent-bglight: rgba(255, 255, 255, 0.15);
     background: none;
     border: 0;
     transition: background 0.13s;
-    &:hover {
+    &:hover, &.active {
       background: rgba(255, 255, 255, 0.15);
     }
     &:active {

@@ -10,6 +10,7 @@ $(function () {
   $(document).on("keyup", function (e) {
     if (e.key === "Escape") {
       menu.removeClass("active");
+      $(".start").removeClass("active");
     }
   });
   $(document).on("mouseup", function (e) {
@@ -20,14 +21,17 @@ $(function () {
       menu.has(e.target).length === 0
     ) {
       menu.removeClass("active");
+      $(".start").removeClass("active");
     }
   });
   const startmenu = $(".start-menu");
   $(".start").on("click", function () {
     if (startmenu.hasClass("active")) {
       startmenu.removeClass("active");
+      $(".start").removeClass("active");
     } else {
       startmenu.addClass("active");
+      $(".start").addClass("active");
     }
   });
 
@@ -54,7 +58,11 @@ $(function () {
   }
 
   // add trigger for desktop icons
-  $(".configprg").on("dblclick", function () {
-    programs.config();
+  $(".configprg").on("dblclick keyup", function (e) {
+    if (e.type === "keyup" && e.keyCode === 13) {
+        programs.config();
+    } else if (e.type === "dblclick") {
+      programs.config();
+    }
   });
 });
