@@ -7,7 +7,6 @@ import {wnd, programs} from "./api";
 $(function () {
   // manage all menus
   const menu = $(".menu");
-  const startmenu = $(".start-menu");
   $(document).on("keyup", function (e) {
     if (e.key === "Escape") {
       menu.removeClass("active");
@@ -23,6 +22,7 @@ $(function () {
       menu.removeClass("active");
     }
   });
+  const startmenu = $(".start-menu");
   $(".start").on("click", function () {
     if (startmenu.hasClass("active")) {
       startmenu.removeClass("active");

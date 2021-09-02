@@ -65,53 +65,58 @@ body {
 .desktop {
   display: flex;
   flex-direction: column;
-  margin: 6px 0 0 4px;
+  margin: 6px 0 0 6px;
   .icon:first-child {
-    padding-top: 0 !important;
+    margin-top: 0 !important;
   }
   .icon {
-    max-width: 75px;
-    padding: 0.75em 0.75em 0 0 !important;
-    border: 0 !important;
+    max-width: 93px;
+    min-height: 70px;
+    padding-left: 5px;
+    margin: 1em 1em 0 0 !important;
+    border: 0;
     background: none;
-    box-shadow: none !important;
     outline: 0;
-    &:focus {
-      img {
-        mix-blend-mode: multiply;
-      }
-      p {
-        background: darkblue;
-        outline: 1px dotted black;
-      }
-    }
     img {
       width: 30px;
       height: 35px;
     }
     p {
-      background: rgb(0, 128, 128);
       color: white;
       margin: 0;
-      margin-top: 5px;
       margin-left: 0.5%;
+    }
+
+    &:hover {
+      background: rgba(173, 216, 230, 0.25);
+      outline: solid 1px rgba(173, 216, 230, 0.4);
+    }
+    &:focus {
+      background: rgba(0, 191, 255, 0.3);
+      outline: solid 1px rgba(0, 191, 255, 0.5);
     }
   }
 }
 
+$taskbar-height: 40px;
+$fluent: blur(10px);
+$fluent-bg: rgba(255, 255, 255, 0.103);
+$fluent-bglight: rgba(255, 255, 255, 0.15);
 .start-menu {
+  max-height: 0;
+  transition: max-height 0.1s ease-in-out;
   z-index: 2;
   position: fixed;
-  bottom: 32px;
+  bottom: $taskbar-height;
   left: 1px;
-  background: lightgrey;
-  box-shadow: $shadow;
+  background: $fluent-bglight;
+  backdrop-filter: $fluent;
   width: 207px;
   height: 340px;
-  overflow: auto;
-  display: none;
+  overflow: hidden;
   &.active {
-    display: initial;
+    transition: max-height 0.5s ease-in;
+    max-height: 100%;
   }
 }
 
@@ -122,18 +127,18 @@ body {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 40px;
-  outline: 1px solid rgb(223, 223, 223);
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
+  height: $taskbar-height;
+  background: $fluent-bg;
+  backdrop-filter: $fluent;
   overflow-y: auto;
 
   .start {
     display: inline-block;
+    outline: 0;
     width: 48px;
     background: none;
     border: 0;
-    transition: background 0.1s;
+    transition: background 0.13s;
     &:hover {
       background: rgba(255, 255, 255, 0.15);
     }
@@ -150,8 +155,9 @@ body {
       bottom: -1px;
     }
     &:hover img {
-      filter: invert(53%) sepia(83%) saturate(1614%) hue-rotate(160deg)
-        brightness(92%) contrast(106%);
+      filter: invert(30%) sepia(10%) saturate(2407%) hue-rotate(169deg)
+        brightness(104%) contrast(70%);
+      // uses https://codepen.io/sosuke/pen/Pjoqqp for generation of this filtrer
     }
   }
 
@@ -171,7 +177,7 @@ body {
   user-select: none;
   opacity: 0.5;
   right: 0;
-  bottom: 0;
+  bottom: 3%;
   padding: 0.4em;
 
   &:hover {
